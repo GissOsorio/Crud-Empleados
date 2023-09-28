@@ -3,6 +3,13 @@ const morgan=require('morgan');
 const bodyParser = require('body-parser');
 const app=express();
 
+const cors = require('cors');
+const corsOptions ={
+    origin:'*', 
+    credentials:true
+}
+app.use(cors(corsOptions));
+
 //settings
 app.set('puerto',process.env.PORT|| 3000);
 app.use(bodyParser.json());

@@ -3,12 +3,9 @@ const Empleado = require('../models/Empleado');
 
 
 empleadoCtrl.getEmpleados = async (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*")
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Max-Age", "1800");
+    res.header("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "content-type");
     res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
-
     try {
         const empleados = await Empleado.find();
         res.json(empleados);
@@ -18,9 +15,7 @@ empleadoCtrl.getEmpleados = async (req, res) => {
     }
 };
 empleadoCtrl.createEmpleado= async(req,res)=>{
-    res.setHeader("Access-Control-Allow-Origin", "*")
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Max-Age", "1800");
+    res.header("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "content-type");
     res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
     try {
@@ -42,9 +37,7 @@ empleadoCtrl.createEmpleado= async(req,res)=>{
 empleadoCtrl.getEmpleado=(req,res)=>{}
 
 empleadoCtrl.editEmpleado = async (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*")
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Max-Age", "1800");
+    res.header("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "content-type");
     res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
     try {
@@ -69,9 +62,7 @@ empleadoCtrl.editEmpleado = async (req, res) => {
 };
 
 empleadoCtrl.deleteEmpleado = async (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*")
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Max-Age", "1800");
+    res.header("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "content-type");
     res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
     try {

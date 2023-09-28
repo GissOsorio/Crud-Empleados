@@ -4,10 +4,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { EmpleadosTableComponent } from './components/empleados-table/empleados-table.component';
 import { EmpleadosFormComponent } from './components/empleados-form/empleados-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule for form handling
+
 
 @NgModule({
   declarations: [
@@ -20,8 +21,10 @@ import { EmpleadosFormComponent } from './components/empleados-form/empleados-fo
     MatTableModule,
     MatSnackBarModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    HttpClientJsonpModule,
+    BrowserAnimationsModule, 
   ],
   providers: [],
   bootstrap: [AppComponent],

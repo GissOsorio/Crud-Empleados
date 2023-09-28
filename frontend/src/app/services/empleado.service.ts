@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IEmpleado } from '../model/empleado';
@@ -18,8 +18,21 @@ export class EmpleadoService {
   updateEmpleado(user: IEmpleado): Observable<IEmpleado> {
     return this.httpclient.patch<IEmpleado>(`${this.serviceUrl}/${user.id}`, user);
   }
-  addEmpleado(user: IEmpleado): Observable<IEmpleado> {
-    return this.httpclient.post<IEmpleado>(`${this.serviceUrl}/`, user);
+
+  addEmpleado(data: IEmpleado): Observable<IEmpleado> {
+
+    const body = {
+      nombre: data.nombre,
+      cargo: data.cargo,
+      departamento: data.departamento,
+      sueldo: data.sueldo.toString(),
+    };
+    const headers = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set('Access-Control-Allow-Origin', 'application/json')
+
+    return this.httpclient.post<IEmpleado>(`${this.serviceUrl}/`, body, {headers});
+
   }
   deleteEmpleado(id: string): Observable<IEmpleado> {
     return this.httpclient.delete<IEmpleado>(`${this.serviceUrl}/${id}`);

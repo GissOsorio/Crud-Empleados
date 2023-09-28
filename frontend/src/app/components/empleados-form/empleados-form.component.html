@@ -1,20 +1,19 @@
-<div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Nombre" aria-label="Username" aria-describedby="basic-addon1">
-</div>
-
-<div class="input-group mb-3">
-
-    <input type="text" class="form-control" placeholder="Cargo" aria-label="Server">
-</div>
-
-<div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Departamento" aria-label="Server">
-</div>
-    
-<div class="input-group mb-3">
-    <span class="input-group-text">$</span>
-    <input type="text" class="form-control" placeholder="Sueldo" aria-label="Sueldo">
-</div>
-  
-<input class="btn btn-primary" type="submit" value="Submit">
-
+<form [formGroup]="empleadoForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" formControlName="nombre">
+    </div>
+    <div>
+      <label for="cargo">Cargo:</label>
+      <input type="text" id="cargo" formControlName="cargo">
+    </div>
+    <div>
+      <label for="departamento">Departamento:</label>
+      <input type="text" id="departamento" formControlName="departamento">
+    </div>
+    <div>
+      <label for="sueldo">Sueldo:</label>
+      <input type="number" id="sueldo" formControlName="sueldo">
+    </div>
+    <button type="submit">Agregar Empleado</button>
+  </form>

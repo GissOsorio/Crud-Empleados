@@ -1,4 +1,4 @@
-import { IEmpleado } from './empleado';
+import { Empleado } from './empleadoClass';
 
 describe('Empleado', () => {
   it('should create an instance', () => {
