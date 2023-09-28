@@ -16,7 +16,7 @@ export class EmpleadoService {
   }
 
   updateEmpleado(user: IEmpleado): Observable<IEmpleado> {
-    return this.httpclient.patch<IEmpleado>(`${this.serviceUrl}/${user.id}`, user);
+    return this.httpclient.put<IEmpleado>(`${this.serviceUrl}/${user.id}`, user);
   }
 
   addEmpleado(data: IEmpleado): Observable<IEmpleado> {

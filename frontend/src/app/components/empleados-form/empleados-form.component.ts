@@ -15,6 +15,7 @@ export class EmpleadosFormComponent {
 
   constructor(private fb: FormBuilder, private empleadoService: EmpleadoService) {
     this.empleadoForm = this.fb.group({
+      id: [''],
       nombre: ['', Validators.required],
       cargo: ['', Validators.required],
       departamento: ['', Validators.required],
@@ -26,17 +27,26 @@ export class EmpleadosFormComponent {
     if (this.empleadoForm.valid) {
       const formData = this.empleadoForm.value;
       const empleadoData: IEmpleado = {
-        id: "",
+        id: formData.id,
         nombre: formData.nombre,
         cargo: formData.cargo,
         departamento: formData.departamento,
         sueldo: formData.sueldo,
       };
+      console.log("formData.id")
+      console.log(formData.id)
+      if (formData.id === ""){
+        this.empleadoService.addEmpleado(empleadoData).subscribe((response) => {
+          // Handle the response or perform any necessary actions
+          console.log('Empleado added:', response);
+        });
+      }else{
+        this.empleadoService.updateEmpleado(empleadoData).subscribe((response) => {
+          // Handle the response or perform any necessary actions
+          console.log('Empleado updated:', response);
+        });        
+      }
 
-      this.empleadoService.addEmpleado(empleadoData).subscribe((response) => {
-        // Handle the response or perform any necessary actions
-        console.log('Empleado added:', response);
-      });
     }
   }
 }

@@ -1,5 +1,9 @@
 <form [formGroup]="empleadoForm" (ngSubmit)="onSubmit()">
     <div>
+      <label for="id">Id:</label>
+      <input type="text" id="id" formControlName="id">
+    </div>
+    <div>
       <label for="nombre">Nombre:</label>
       <input type="text" id="nombre" formControlName="nombre">
     </div>
@@ -15,5 +19,5 @@
       <label for="sueldo">Sueldo:</label>
       <input type="number" id="sueldo" formControlName="sueldo">
     </div>
-    <button type="submit">Agregar Empleado</button>
+    <button class="btn btn-primary" type="submit">Guardar</button>
   </form>

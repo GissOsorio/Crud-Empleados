@@ -5,6 +5,8 @@ import { IEmpleado } from 'src/app/model/empleado';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmpleadosFormComponent } from '../empleados-form/empleados-form.component'; // Adjust the path as needed
 
 @Component({
   selector: 'app-empleados-table',
@@ -12,7 +14,11 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./empleados-table.component.css']
 })
 
+
 export class EmpleadosTableComponent implements OnInit {
+
+  @ViewChild(EmpleadosFormComponent)
+  private empleadosFormComponent!: EmpleadosFormComponent;
 
   private subs = new Subscription();
 
@@ -22,7 +28,8 @@ export class EmpleadosTableComponent implements OnInit {
 
   private dataArray: any;
 
-  constructor(private eService: EmpleadoService, private _snackBar: MatSnackBar) { }
+  constructor(private eService: EmpleadoService, private _snackBar: MatSnackBar, private fb: FormBuilder) {
+   }
 
   ngOnInit() {
     this.subs.add(this.eService.getEmpleados()
@@ -66,8 +73,17 @@ export class EmpleadosTableComponent implements OnInit {
       );
     }
   }
-  editRow(rowData: any) {
 
+  editRow(rowData: any) {
+    console.log(rowData.nombre);
+    // Asignar los datos de la fila seleccionada al formulario
+    this.empleadosFormComponent.empleadoForm.patchValue({
+      id: rowData._id,
+      nombre: rowData.nombre,
+      cargo: rowData.cargo,
+      departamento: rowData.departamento,
+      sueldo: rowData.sueldo
+    });
   }
 
   public openRecord(id: string, name: string): void {
