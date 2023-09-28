@@ -7,11 +7,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EmpleadosTableComponent } from './components/empleados-table/empleados-table.component';
+import { EmpleadosFormComponent } from './components/empleados-form/empleados-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmpleadosTableComponent,
+    EmpleadosFormComponent,
   ],
   imports: [
     BrowserModule,
