@@ -22,7 +22,7 @@ export class EmpleadosTableComponent implements OnInit {
 
   private subs = new Subscription();
 
-  displayedColumns: string[] = ['_id','nombre', 'cargo', 'departamento', 'sueldo', 'actions'];
+  displayedColumns: string[] = ['nombre', 'cargo', 'departamento', 'sueldo', 'actions'];
 
   public dataSource!: MatTableDataSource<IEmpleado>;
 
