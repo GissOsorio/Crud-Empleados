@@ -71,7 +71,10 @@ export class EmpleadosTableComponent implements OnInit, OnDestroy {
   }
 
   editRow(rowData: any) {
+    
+    let sueldoUSD = 0;
     console.log(rowData.nombre);
+    sueldoUSD = rowData.sueldo;
     this.empleadosFormComponent.empleadoForm.patchValue({
       id: rowData._id,
       nombre: rowData.nombre,
@@ -79,14 +82,7 @@ export class EmpleadosTableComponent implements OnInit, OnDestroy {
       departamento: rowData.departamento,
       sueldo: rowData.sueldo
     });
-    this.subs.add(this.eService.getCurrency()
-    .subscribe((res) => {
-      console.log("Currency:");
-      console.log(res);
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err);
-      }));
+
   }
 
   refreshEmpleadoTable() {
@@ -104,6 +100,9 @@ export class EmpleadosTableComponent implements OnInit, OnDestroy {
           console.log(err);
         }));
   }
+
+
+
   public openRecord(id: string, name: string): void {
     this._snackBar.open(`Record ${id} ${name} `, 'Close', {
       horizontalPosition: 'center',

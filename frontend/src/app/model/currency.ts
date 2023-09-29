@@ -1,5 +1,7 @@
 export interface ICurrency {
-    USD: number,
-    CAD: number,
-    EUR: number
+    data: {
+        USD: string,
+        CAD: string,
+        EUR: string
+    }
 }
