@@ -2,12 +2,16 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IEmpleado } from '../model/empleado';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmpleadoService {
   private serviceUrl = 'http://localhost:3000/empleados';
+  private empleadoAddedOrUpdatedSubject = new BehaviorSubject<boolean>(false);
+
+  empleadoAddedOrUpdated$ = this.empleadoAddedOrUpdatedSubject.asObservable();
 
   constructor(private httpclient: HttpClient) {}
 
@@ -36,6 +40,13 @@ export class EmpleadoService {
   }
   deleteEmpleado(id: string): Observable<IEmpleado> {
     return this.httpclient.delete<IEmpleado>(`${this.serviceUrl}/${id}`);
+  }
+  notifyEmpleadoAddedOrUpdated() {
+    this.empleadoAddedOrUpdatedSubject.next(true);
+  }
+
+  setEmpleadoAddedOrUpdated(value: boolean) {
+    this.empleadoAddedOrUpdatedSubject.next(value);
   }
 }
 

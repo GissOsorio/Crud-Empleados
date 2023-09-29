@@ -31,7 +31,7 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef> Eliminar </th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button class="btn btn-outline-danger" (click)="deleteRow(element)">❌</button>
+                        <button mat-icon-button class="btn btn-outline-danger" (click)="deleteRow(element); $event.stopPropagation()">❌</button>
                     </td>
                 </ng-container>
             
@@ -44,4 +44,3 @@
 
 
 
-r

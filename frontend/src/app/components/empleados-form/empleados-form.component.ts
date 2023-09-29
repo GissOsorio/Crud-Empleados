@@ -33,20 +33,30 @@ export class EmpleadosFormComponent {
         departamento: formData.departamento,
         sueldo: formData.sueldo,
       };
-      console.log("formData.id")
-      console.log(formData.id)
       if (formData.id === ""){
         this.empleadoService.addEmpleado(empleadoData).subscribe((response) => {
-          // Handle the response or perform any necessary actions
           console.log('Empleado added:', response);
+          alert('Empleado agregado!');
         });
+        this.empleadoService.notifyEmpleadoAddedOrUpdated();
       }else{
         this.empleadoService.updateEmpleado(empleadoData).subscribe((response) => {
-          // Handle the response or perform any necessary actions
           console.log('Empleado updated:', response);
-        });        
+          alert('Datos modificados!');
+        });   
+        this.empleadoService.notifyEmpleadoAddedOrUpdated();     
       }
+      this.resetForm();
 
+
+
+
+
+      
     }
+  }
+  resetForm() {
+    // Reset the form to its initial state
+    this.empleadoForm.reset();
   }
 }

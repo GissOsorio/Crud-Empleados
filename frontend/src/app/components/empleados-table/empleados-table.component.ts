@@ -15,7 +15,7 @@ import { EmpleadosFormComponent } from '../empleados-form/empleados-form.compone
 })
 
 
-export class EmpleadosTableComponent implements OnInit {
+export class EmpleadosTableComponent implements OnInit, OnDestroy {
 
   @ViewChild(EmpleadosFormComponent)
   private empleadosFormComponent!: EmpleadosFormComponent;
@@ -32,6 +32,51 @@ export class EmpleadosTableComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.loadEmpleados();
+  }
+
+  ngOnDestroy() {
+    if (this.subs) {
+      this.subs.unsubscribe();
+    }
+  }
+
+
+  deleteRow(element: any): void {
+    const confirmDelete = confirm('Está seguro que desea eliminar este empleado?');
+    if (confirmDelete) {
+      this.eService.deleteEmpleado(element._id).subscribe(
+        () => {
+          console.log('Empleado Eliminado!');
+          const index = this.dataArray.findIndex((item: { _id: any; }) => item._id === element._id);
+          if (index !== -1) {
+            this.dataArray.splice(index, 1);
+            this.dataSource.data = this.dataArray;
+          }
+        },
+        (error) => {
+          console.error('Error deleting employee:', error);
+        }
+      );
+    }
+  }
+
+  editRow(rowData: any) {
+    console.log(rowData.nombre);
+    this.empleadosFormComponent.empleadoForm.patchValue({
+      id: rowData._id,
+      nombre: rowData.nombre,
+      cargo: rowData.cargo,
+      departamento: rowData.departamento,
+      sueldo: rowData.sueldo
+    });
+  }
+
+  refreshEmpleadoTable() {
+    this.loadEmpleados(); // Call the method to reload data
+  }
+
+  loadEmpleados() {
     this.subs.add(this.eService.getEmpleados()
       .subscribe((res) => {
         console.log(res);
@@ -42,50 +87,6 @@ export class EmpleadosTableComponent implements OnInit {
           console.log(err);
         }));
   }
-  ngOnDestroy() {
-    if (this.subs) {
-      this.subs.unsubscribe();
-    }
-  }
-
-  // Function to handle deleting a row
-  deleteRow(element: any): void {
-    // Show a confirmation dialog if needed
-    const confirmDelete = confirm('Are you sure you want to delete this employee?');
-
-    if (confirmDelete) {
-      // Call the delete function from your service
-      this.eService.deleteEmpleado(element._id).subscribe(
-        () => {
-          // Handle success, such as removing the row from the dataSource
-          console.log('Employee deleted successfully.');
-          
-          // Assuming dataSource is an array of employees, you can remove the deleted employee from it
-          // const index = this.dataSource.findIndex((e) => e._id === element._id);
-          // if (index !== -1) {
-          //   this.dataSource.splice(index, 1);
-          // }
-        },
-        (error) => {
-          // Handle error
-          console.error('Error deleting employee:', error);
-        }
-      );
-    }
-  }
-
-  editRow(rowData: any) {
-    console.log(rowData.nombre);
-    // Asignar los datos de la fila seleccionada al formulario
-    this.empleadosFormComponent.empleadoForm.patchValue({
-      id: rowData._id,
-      nombre: rowData.nombre,
-      cargo: rowData.cargo,
-      departamento: rowData.departamento,
-      sueldo: rowData.sueldo
-    });
-  }
-
   public openRecord(id: string, name: string): void {
     this._snackBar.open(`Record ${id} ${name} `, 'Close', {
       horizontalPosition: 'center',
