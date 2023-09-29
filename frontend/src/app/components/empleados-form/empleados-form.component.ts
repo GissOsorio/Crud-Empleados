@@ -35,24 +35,19 @@ export class EmpleadosFormComponent {
       };
       if (formData.id === ""){
         this.empleadoService.addEmpleado(empleadoData).subscribe((response) => {
+          this.empleadoService.notifyEmpleadoAddedOrUpdated();  
           console.log('Empleado added:', response);
           alert('Empleado agregado!');
         });
-        this.empleadoService.notifyEmpleadoAddedOrUpdated();
       }else{
         this.empleadoService.updateEmpleado(empleadoData).subscribe((response) => {
+          this.empleadoService.notifyEmpleadoAddedOrUpdated();  
           console.log('Empleado updated:', response);
           alert('Datos modificados!');
-        });   
-        this.empleadoService.notifyEmpleadoAddedOrUpdated();     
+        });     
       }
-      this.resetForm();
-
-
-
-
-
       
+      this.resetForm();
     }
   }
   resetForm() {

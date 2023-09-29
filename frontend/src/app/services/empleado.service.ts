@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IEmpleado } from '../model/empleado';
 import { BehaviorSubject } from 'rxjs';
+import { ICurrency } from '../model/currency';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +43,14 @@ export class EmpleadoService {
     return this.httpclient.delete<IEmpleado>(`${this.serviceUrl}/${id}`);
   }
   notifyEmpleadoAddedOrUpdated() {
+    console.log("notify empleado added or updated");
     this.empleadoAddedOrUpdatedSubject.next(true);
+  }
+  getCurrency(): Observable<ICurrency> {
+    const params = new HttpParams()
+    .set('apikey', 'fca_live_GXyEaoewAwbg54UND0AuiuTcH4dV2fUu3OSn31Be')
+    .set('currencies', 'EUR,USD,CAD')
+    return this.httpclient.get<ICurrency>("https://api.freecurrencyapi.com/v1/latest", {params});
   }
 
   setEmpleadoAddedOrUpdated(value: boolean) {

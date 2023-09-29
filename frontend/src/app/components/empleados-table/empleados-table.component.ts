@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmpleadosFormComponent } from '../empleados-form/empleados-form.component'; // Adjust the path as needed
+import { ICurrency } from 'src/app/model/currency';
 
 @Component({
   selector: 'app-empleados-table',
@@ -33,6 +34,14 @@ export class EmpleadosTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadEmpleados();
+    this.subs.add(
+      this.eService.empleadoAddedOrUpdated$.subscribe((value) => {
+        if (value) {
+          // Reload data when notifyEmpleadoAddedOrUpdated is true
+          this.loadEmpleados();
+        }
+      })
+    );
   }
 
   ngOnDestroy() {
@@ -70,6 +79,14 @@ export class EmpleadosTableComponent implements OnInit, OnDestroy {
       departamento: rowData.departamento,
       sueldo: rowData.sueldo
     });
+    this.subs.add(this.eService.getCurrency()
+    .subscribe((res) => {
+      console.log("Currency:");
+      console.log(res);
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      }));
   }
 
   refreshEmpleadoTable() {
