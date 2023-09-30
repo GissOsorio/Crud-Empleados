@@ -55,6 +55,7 @@ export class EmpleadosFormComponent implements OnInit {
       this.resetForm();
     }
   }
+  //Cargar los datos sobre la cotización de las monedas
   loadCurrency (){
     this.empleadoService.getCurrency()
     .subscribe((res) => {

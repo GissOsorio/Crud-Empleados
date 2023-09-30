@@ -19,11 +19,11 @@ export class EmpleadoService {
   getEmpleados(): Observable<IEmpleado[]>{
     return this.httpclient.get<IEmpleado[]>(this.serviceUrl);
   }
-
+  //Editar empleado
   updateEmpleado(user: IEmpleado): Observable<IEmpleado> {
     return this.httpclient.put<IEmpleado>(`${this.serviceUrl}/${user.id}`, user);
   }
-
+  //Agregar empleado
   addEmpleado(data: IEmpleado): Observable<IEmpleado> {
 
     const body = {
@@ -39,13 +39,16 @@ export class EmpleadoService {
     return this.httpclient.post<IEmpleado>(`${this.serviceUrl}/`, body, {headers});
 
   }
+  //Delete
   deleteEmpleado(id: string): Observable<IEmpleado> {
     return this.httpclient.delete<IEmpleado>(`${this.serviceUrl}/${id}`);
   }
+  //Notificar cuando se ha agregado un empleado o editado para refrescar la tabla
   notifyEmpleadoAddedOrUpdated() {
     console.log("notify empleado added or updated");
     this.empleadoAddedOrUpdatedSubject.next(true);
   }
+  //Obtener los datos de las monedas
   getCurrency(): Observable<ICurrency> {
     const params = new HttpParams()
     .set('apikey', 'fca_live_GXyEaoewAwbg54UND0AuiuTcH4dV2fUu3OSn31Be')

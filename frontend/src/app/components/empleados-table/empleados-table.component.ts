@@ -50,7 +50,7 @@ export class EmpleadosTableComponent implements OnInit, OnDestroy {
     }
   }
 
-
+  //Borrar un empleado
   deleteRow(element: any): void {
     const confirmDelete = confirm('Está seguro que desea eliminar este empleado?');
     if (confirmDelete) {
@@ -70,6 +70,7 @@ export class EmpleadosTableComponent implements OnInit, OnDestroy {
     }
   }
 
+  //Cargar en el formulario cuando se quiere editar un empleado
   editRow(rowData: any) {
     
     let sueldoUSD = 0;
@@ -86,9 +87,9 @@ export class EmpleadosTableComponent implements OnInit, OnDestroy {
   }
 
   refreshEmpleadoTable() {
-    this.loadEmpleados(); // Call the method to reload data
+    this.loadEmpleados(); 
   }
-
+  //Cargar los empleados
   loadEmpleados() {
     this.subs.add(this.eService.getEmpleados()
       .subscribe((res) => {
